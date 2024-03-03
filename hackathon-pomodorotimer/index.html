@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <section>
+        <div class="container">
+            <h1>Pomodoro</h1>
+    
+            <div class="painel">
+                <p id="work">Work</p>
+                <p id="break">Break</p>
+                <p id="long-break">Long Break</p>
+            </div>
+    
+            <div class="timer">
+                <div class="circle">
+                    <div class="time">
+                        <p id="minutes"></p>
+                        <p>:</p>
+                        <p id="seconds"></p>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="controls">
+                <input type="number" id="workMinutesInput" placeholder="Work time (minutes)">
+                <input type="number" id="workSecondsInput" placeholder="Work time (seconds)">
+                <input type="number" id="breakMinutesInput" placeholder="Short break time (minutes)">
+                <input type="number" id="breakSecondsInput" placeholder="Short break time (seconds)">
+            </div>
+           <div class="controls">
+                <input type="number" id="longBreakMinutesInput" placeholder="Long break time (minutes)">
+                <input type="number" id="longBreakSecondsInput" placeholder="Long break time (seconds)">
+                <input type="number" id="cycleCountInput" placeholder="Total cycles">
+                <button id="start" class="start-btn" onclick="start()">Start</button>
+                <button id="reset" class="reset-btn" onclick="reset()">Reset</button>
+            </div>
+            <p id="message"></p>
+        </div>
+    </section>
+
+    <audio id="notification_sound">
+        <source src="notification_sound.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="./script.js"></script>
+</body>
+</html>
