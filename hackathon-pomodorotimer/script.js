@@ -1,3 +1,17 @@
+// Variables for distraction-free mode
+let distractionFreeMode = false;
+let remainingTime = 0;
+
+// Statistics tracking variables
+let totalSessions = 0;
+let totalTimeSpent = 0;
+
+// Function to toggle distraction-free mode
+const distractionToggle = document.getElementById('distractionToggle');
+distractionToggle.addEventListener('change', () => {
+    distractionFreeMode = distractionToggle.checked;
+});
+
 // variables
 let workTittle = document.getElementById('work');
 let breakTittle = document.getElementById('break');
@@ -9,6 +23,8 @@ let breakSecondsInput = document.getElementById('breakSecondsInput');
 let longBreakMinutesInput = document.getElementById('longBreakMinutesInput');
 let longBreakSecondsInput = document.getElementById('longBreakSecondsInput');
 let cycleCountInput = document.getElementById('cycleCountInput');
+let taskInput = document.getElementById('taskInput');
+let taskList = document.getElementById('taskList');
 let notificationSound = new Audio('notification_sound.mp3'); // Assign the notification sound
 
 let workTime = 25 * 60; // Default work time in seconds (25 minutes)
@@ -44,6 +60,7 @@ function start() {
 
     // Change button
     document.getElementById('start').style.display = "none";
+    document.getElementById('pause').style.display = "block";
     document.getElementById('reset').style.display = "block";
 
     // Reset seconds
@@ -53,15 +70,32 @@ function start() {
     startWorkTimer();
 }
 
+// pause timer
+function pause() {
+    clearInterval(timer); // Clear the interval to pause the timer
+    // Store the remaining time
+    remainingTime = seconds;
+    document.getElementById('pause').style.display = "none";
+    document.getElementById('resume').style.display = "block";
+}
 
+// resume timer
+function resume() {
+    if (isWorkTime) {
+        startWorkTimer(remainingTime); // Resume work timer with remaining time
+    } else {
+        startBreakTimer(remainingTime); // Resume break timer with remaining time
+    }
+    document.getElementById('resume').style.display = "none";
+    document.getElementById('pause').style.display = "block";
+}
 
 
 // Timer logic for work time
-// Timer logic for work time
-function startWorkTimer() {
+function startWorkTimer(remainingTime = workTime) {
     notificationSound.play();
     displayMessage("It's work time!");
-    seconds = workTime; // Set work time in seconds
+    seconds = remainingTime; // Set work time in seconds
     workTittle.classList.add('active');
     timer = setInterval(() => {
         seconds--;
@@ -70,7 +104,6 @@ function startWorkTimer() {
             displayMessage("5 seconds left of work time!");
         }
         if (seconds < 0) {
-            
             clearInterval(timer);
             
             cycleCounter++;
@@ -78,24 +111,24 @@ function startWorkTimer() {
                 startLongBreakTimer(); // Start long break timer after each cycle
             } else {
                 isWorkTime = false;
-                if (!isWorkTime) {
-                    startBreakTimer(); // Start break timer when work time is over and it's not work time
-                }
-                else {
-                    startLongBreakTimer(); // Start long break timer when work time is over and it's work time
-                }
+                startBreakTimer(); // Start break timer when work time is over and it's not work time
             }
+            // Update statistics
+            totalSessions++;
+            document.getElementById('totalSessions').textContent = totalSessions;
+            totalTimeSpent += workTime / 60;
+            document.getElementById('totalTimeSpent').textContent = totalTimeSpent.toFixed(2);
+            document.getElementById('averageSessionLength').textContent = (totalTimeSpent / totalSessions).toFixed(2);
         }
         displayTime();
     }, 1000);
 }
 
 // Timer logic for short break time
-// Timer logic for short break time
-function startBreakTimer() {
+function startBreakTimer(remainingTime = breakTime) {
     notificationSound.play();
     displayMessage("Have a break!");
-    seconds = breakTime; // Set break time in seconds
+    seconds = remainingTime; // Set break time in seconds
     breakTittle.classList.add('active');
     timer = setInterval(() => {
         seconds--;
@@ -106,12 +139,13 @@ function startBreakTimer() {
         if (seconds < 0) {
             clearInterval(timer);
             isWorkTime = true;
-            startWorkTimer();
+            startWorkTimer(); // Start work timer when break time is over
             notificationSound.play(); // Play notification sound
         }
         displayTime();
     }, 1000);
 }
+
 
 // Timer logic for long break time
 function startLongBreakTimer() {
@@ -157,6 +191,20 @@ function reset() {
     isWorkTime = true;
     cycleCounter = 0;
     document.getElementById('start').style.display = "block";
+    document.getElementById('pause').style.display = "none";
+    document.getElementById('resume').style.display = "none";
     document.getElementById('reset').style.display = "none";
     displayMessage(""); // Clear the message display
+}
+
+// Task list integration
+function addTask() {
+    let taskInput = document.getElementById('taskInput');
+    let taskList = document.getElementById('taskList');
+    if (taskInput.value !== '') {
+        let li = document.createElement('li');
+        li.textContent = taskInput.value;
+        taskList.appendChild(li);
+        taskInput.value = '';
+    }
 }

@@ -156,10 +156,55 @@ section {
     color: var(--color-secondary); /* Placeholder text color */
 }
 
+/* Task list styles */
+.task-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#taskInput {
+    padding: 10px;
+    font-size: 1.6rem;
+    border: 2px solid var(--color-secondary);
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: var(--color-font);
+    margin-bottom: 10px;
+}
+
+#addTaskBtn {
+    padding: 10px 20px;
+    font-size: 1.6rem;
+    font-family: 'Open sans', sans-serif;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-secondary);
+    color: var(--color-font);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#addTaskBtn:hover {
+    background-color: var(--color-secondary-light);
+}
+
+#taskList {
+    margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 2px solid var(--color-secondary);
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: var(--color-font);
+    font-size: 1.6rem;
+}
+
 /* Your existing CSS */
 
-.controls .start-btn
-{
+.controls .start-btn {
     padding: 10px 20px; /* Adjust padding to match for both buttons */
     font-size: 1.6rem;
     font-family: 'Open sans', sans-serif; /* Match the font family of other elements */
@@ -179,11 +224,52 @@ section {
     font-family: 'Open sans', sans-serif; /* Match the font family of other elements */
     border: none;
     border-radius: 30px; /* Oval shape */
-    background-color: var(--color-secondary); /* Background color */
+    background-color: var(--color-secondary);
+    color: var(--color-font); /* Text color */
+    /* Background color */
     cursor: pointer;
     transition: background-color 0.3s ease; /* Smooth transition */
     display: block; /* Display as block to appear on separate lines */
     margin-bottom: 10px;
     font-size: 1.6rem;
     height: 5%;
+}
+
+
+
+.controls .pause-btn {
+    padding: 10px 20px; /* Adjust padding to match for all buttons */
+    font-size: 1.6rem;
+    font-family: 'Open sans', sans-serif; /* Match the font family of other elements */
+    border: none;
+    border-radius: 30px; /* Oval shape */
+    background-color: var(--color-secondary); /* Background color */
+    color: var(--color-font); /* Text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+    display: block; /* Display as block to appear on separate lines */
+    margin-bottom: 10px; /* Add margin bottom to create space between buttons */
+}
+
+/* Your existing CSS */
+
+.controls .resume-btn {
+    padding: 10px 20px; /* Adjust padding to match for all buttons */
+    font-size: 1.6rem;
+    font-family: 'Open sans', sans-serif; /* Match the font family of other elements */
+    border: none;
+    border-radius: 30px; /* Oval shape */
+    background-color: var(--color-secondary); /* Background color */
+    color: var(--color-font); /* Text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+    display: block; /* Display as block to appear on separate lines */
+    margin-bottom: 10px; /* Add margin bottom to create space between buttons */
+}
+
+
+.toggle-label {
+    color: red; /* Set the text color to red */
+    font-weight: bold; /* Make the text bold */
+    margin-bottom: 10px; /* Add some bottom margin for spacing */
 }

@@ -2,20 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro Timer</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Pomodoro Timer with Distraction-Free Mode</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <section>
         <div class="container">
-            <h1>Pomodoro</h1>
+            <h1 style="color: white;">Pomodoro</h1>
     
             <div class="painel">
-                <p id="work">Work</p>
-                <p id="break">Break</p>
-                <p id="long-break">Long Break</p>
+                <p id="work" style="color: white;">Work</p> <p id="break">Break</p> <p id="long-break">Long Break</p>
             </div>
     
             <div class="timer">
@@ -34,14 +31,28 @@
                 <input type="number" id="breakMinutesInput" placeholder="Short break time (minutes)">
                 <input type="number" id="breakSecondsInput" placeholder="Short break time (seconds)">
             </div>
-           <div class="controls">
+            <div class="controls">
                 <input type="number" id="longBreakMinutesInput" placeholder="Long break time (minutes)">
                 <input type="number" id="longBreakSecondsInput" placeholder="Long break time (seconds)">
                 <input type="number" id="cycleCountInput" placeholder="Total cycles">
                 <button id="start" class="start-btn" onclick="start()">Start</button>
+                <button id="pause" class="pause-btn" onclick="pause()">Pause</button>
+                <button id="resume" class="resume-btn" onclick="resume()">Resume</button>
                 <button id="reset" class="reset-btn" onclick="reset()">Reset</button>
             </div>
+            <input type="text" id="taskInput" placeholder="Add task...">
+            <button id="addTaskBtn" onclick="addTask()">Add Task</button>
+            <ul id="taskList"></ul>
             <p id="message"></p>
+           
+            <label for="distractionToggle" class="toggle-label">Distraction-Free Mode</label>
+            <input type="checkbox" id="distractionToggle">
+            <!-- Display Statistics -->
+            <div class="statistics">
+                <p>Total Pomodoro Sessions Completed: <span id="totalSessions">0</span></p>
+                <p>Average Session Length: <span id="averageSessionLength">0</span> minutes</p>
+                <p>Total Time Spent Working: <span id="totalTimeSpent">0</span> minutes</p>
+            </div>
         </div>
     </section>
 
